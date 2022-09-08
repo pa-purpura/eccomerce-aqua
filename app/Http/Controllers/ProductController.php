@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,8 +15,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // $products = Product::all();  
+        $products = Product::with('category')->get();  
+
+        // $products = DB::table('products')->get();        
+
+        return view('product.index', compact('products'));
     }
+
+    // public function getProductsByCategory($id){
+    //     $products = Product::where('category_id', $id);
+    //     return view ('category.category_list', compact('products'));
+    // }
 
     /**
      * Show the form for creating a new resource.
